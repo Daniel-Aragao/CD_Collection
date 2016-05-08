@@ -30,7 +30,6 @@ FILEGROUP DMC_FG3
 ALTER DATABASE CD_Collection 
   MODIFY FILEGROUP DMC_FG3 DEFAULT;
 
---cd e gravadoras(labels)
 
 CREATE TABLE Label(
 	codigo INT NOT NULL PRIMARY KEY NONCLUSTERED IDENTITY,
@@ -48,10 +47,13 @@ CREATE TABLE Telefone(
 CREATE TABLE CD(
 	codigo INT NOT NULL PRIMARY KEY IDENTITY,
 	cod_label INT NOT NULL FOREIGN KEY REFERENCES Label(codigo),
-	data_gravacao DATETIME NOT NULL, -- deve ser posterior a 01.01.2000
+	data_gravacao DATETIME NOT NULL, 
+	-- a data deve ser posterior a 01.01.2000
 	data_compra DATETIME NOT NULL,
 	descricao VARCHAR(200) NOT NULL,
-	preco_compra DECIMAL(10,2) NOT NULL, -- e o preco deve ser menor que 3x a media do preco de compra de cds com todas as faixas com tipo de gravação ddd
+	preco_compra DECIMAL(10,2) NOT NULL, 
+	-- e o preco deve ser menor ou igual que 3x a media do preco de compra de 
+	-- cds com todas as faixas com tipo de gravação ddd
 
 	CONSTRAINT data_gravacao_minima CHECK (YEAR(data_gravacao) > 1999)
 )

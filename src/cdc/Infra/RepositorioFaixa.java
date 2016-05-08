@@ -44,6 +44,6 @@ public class RepositorioFaixa {
 			}
 		}
 
-		return true;
+	
 	}
 }
