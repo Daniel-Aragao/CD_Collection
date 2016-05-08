@@ -1,0 +1,13 @@
+html, body{
+    background-color: black;
+    color: white;
+}
+
+.body-container{
+    padding-top: 50px;
+}
+
+.navbar, navbar-default{
+    border-radius: 0px;
+    color: black;
+}

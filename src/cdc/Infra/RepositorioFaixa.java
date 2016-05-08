@@ -14,7 +14,8 @@ public class RepositorioFaixa {
 		try {
 			con = Conexao.getConexao();
 			stmt = con.prepareStatement(
-					"insert into objeto (numero, descricao, peso, altura, largura, profundidade, valor, remetente_id, destinatario_id) values(?,?,?,?,?,?,?,?,?)");
+					"insert into Faixa (numero, tipo_gravacao, codigo_compositor, descricao, tipo_composicao) "
+					+ "values(?,?,?,?,?)");
 
 //			stmt.setString(1, objeto.getNumero());
 //			stmt.setString(2, objeto.getDescricao());
