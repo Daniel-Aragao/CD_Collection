@@ -9,20 +9,20 @@ ON PRIMARY(
 FILEGROUP DMC_FG2
 	(
 	NAME = 'DMC_FG2_Dat1',
-	FILENAME = 'C:\BancosDeDados\CD_Collection\CDC_FG1_Dat1.ndf',
+	FILENAME = 'C:\BancosDeDados\CD_Collection\CDC_FG2_Dat1.ndf',
 	SIZE = 5MB,
 	MAXSIZE=10MB,
 	FILEGROWTH=1MB),
 	(
 	NAME='DMC_FG2_Dat2',
-	FILENAME = 'C:\BancoDeDados\CD_Collection\CDC_FG1_Dat2.ndf',
+	FILENAME = 'C:\BancosDeDados\CD_Collection\CDC_FG2_Dat2.ndf',
 	SIZE = 5MB,
 	MAXSIZE=10MB,
 	FILEGROWTH=1MB),
 FILEGROUP DMC_FG3
 	(
 	NAME = 'DMC_FG3_Dat1',
-	FILENAME = 'C:\BancosDeDados\CD_Collection\CDC_FG1_Dat1.ndf',
+	FILENAME = 'C:\BancosDeDados\CD_Collection\CDC_FG3_Dat1.ndf',
 	SIZE = 5MB,
 	MAXSIZE=10MB,
 	FILEGROWTH=1MB)
@@ -30,25 +30,26 @@ FILEGROUP DMC_FG3
 ALTER DATABASE CD_Collection 
   MODIFY FILEGROUP DMC_FG3 DEFAULT;
 
+USE CD_Collection
 
 CREATE TABLE Label(
-	codigo INT NOT NULL PRIMARY KEY NONCLUSTERED IDENTITY,
+	codigo INT NOT NULL PRIMARY KEY IDENTITY,
 	endereco VARCHAR(200) NOT NULL,
 	endereco_site VARCHAR(100) NOT NULL,
 	nome VARCHAR(50) NOT NULL
 )
 
 CREATE TABLE Telefone(
-	Id INT NOT NULL PRIMARY KEY IDENTITY,
+	codigo INT NOT NULL PRIMARY KEY IDENTITY,
 	numero BIGINT NOT NULL,
-	codigo_label INT NOT NULL FOREIGN KEY REFERENCES Label(codigo) 
+	codigo_label INT NOT NULL FOREIGN KEY REFERENCES Label 
 )
 
 CREATE TABLE CD(
 	codigo INT NOT NULL PRIMARY KEY IDENTITY,
-	cod_label INT NOT NULL FOREIGN KEY REFERENCES Label(codigo),
+	cod_label INT NOT NULL FOREIGN KEY REFERENCES Label,
 	data_gravacao DATETIME NOT NULL, 
-	-- a data deve ser posterior a 01.01.2000
+	-- a data de gravacao deve ser posterior a 01.01.2000
 	data_compra DATETIME NOT NULL,
 	descricao VARCHAR(200) NOT NULL,
 	preco_compra DECIMAL(10,2) NOT NULL, 
@@ -64,9 +65,7 @@ CREATE TABLE Periodo_Musical(
 	data_inicial DATETIME NOT NULL,
 	data_final DATETIME NOT NULL
 )
-INSERT INTO Periodo_Musical(descricao,data_inicial,data_final)
-VALUES
-('Idade média',,),('Renascença',,),('Barroco',,),('Clássico',,),('Romântico',,),('Moderno',,)
+
 
 CREATE TABLE Compositor(
 	codigo INT NOT NULL PRIMARY KEY IDENTITY,
@@ -76,9 +75,6 @@ CREATE TABLE Compositor(
 	local_nascimento VARCHAR(200) NOT NULL,
 	codigo_periodo_musical INT NOT NULL FOREIGN KEY REFERENCES Periodo_Musical
 )
-INSERT INTO Compositor(nome, data_nascimento, data_morte, local_nascimento, codigo_periodo_musical)
-VALUES
-('',,,'',),('',,,'',),('',,,'',),('',,,'',),('',,,'',)
 
 
 CREATE TABLE Interprete(
@@ -86,35 +82,30 @@ CREATE TABLE Interprete(
 	nome VARCHAR(50) NOT NULL,
 	tipo VARCHAR(50) NOT NULL
 )
-INSERT INTO Interprete(nome, tipo)
-VALUES
-('','Orquestra'), ('','Trio'), ('','Quarteto'), ('','Ensemble'),
-('','Soprano'), ('','Tenor'), ('Linkin Park','Banda')
+
 
 CREATE TABLE Tipo_de_Composicao(
 	codigo INT NOT NULL PRIMARY KEY IDENTITY,
 	descricao VARCHAR(50) NOT NULL
 )
 
-INSERT INTO Tipo_de_Composicao(descricao)
-VALUES
-('Sinfonia'), ('Sonata'), ('Ópera'), ('Concerto'), ('Abertura'),
-('Acorde'), ('Ária'), ('Ato'), ('Câmara'), ('Cantata'),
-('Contraponto'), ('Coro'), ('Fantasia'), ('Fuga'),('Intermezzo'),
-('Leitmotif'), ('Minueto'), ('Missa'), ('Movimento'), ('Noturno'),
-('Oratório'), ('Orquestra'), ('Poema Sinfônico'), ('Rapsódia'),
-('Scherzo'), ('Suíte'), ('Toccata'), ('Variações')
-
 CREATE TABLE Faixa(
-	codigo INT NOT NULL PRIMARY KEY IDENTITY,
+	codigo INT NOT NULL PRIMARY KEY NONCLUSTERED IDENTITY,
 	numero INT NOT NULL,
 	tipo_gravacao CHAR(3) NOT NULL,
 	codigo_compositor INT NOT NULL FOREIGN KEY REFERENCES Compositor,
 	descricao VARCHAR(200) NOT NULL,
-
+	tipo_composicao INT NOT NULL FOREIGN KEY REFERENCES Tipo_de_Composicao
 )
 
-perguntar se o codigo vai se autoincrementar somente com "primary key" ao lado da variável
-ou ainda precisa colocar algum constraint a mais, como o identity
+CREATE TABLE Faixa_por_compositor(
+	codigo INT NOT NULL PRIMARY KEY IDENTITY,
+	codigo_faixa INT NOT NULL FOREIGN KEY REFERENCES Faixa,
+	codigo_compositor INT NOT NULL FOREIGN KEY REFERENCES Compositor
+)
 
---USE CD_Collection
+CREATE TABLE Faixa_por_interprete(
+	codigo INT NOT NULL PRIMARY KEY IDENTITY,
+	codigo_faixa INT NOT NULL FOREIGN KEY REFERENCES Faixa,
+	codigo_interprete INT NOT NULL FOREIGN KEY REFERENCES Interprete
+)
