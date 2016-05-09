@@ -13,7 +13,20 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/Users/danda_000/Documents/Estudos, Unifor/Quarto semestre/Tecnologias de internet 1/javax.faces-2.2.9.jar"/>
-	<classpathentry kind="lib" path="C:/Users/danda_000/Documents/Estudos, Unifor/Quarto semestre/Tecnologias de internet 1/jstl-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/danda_000/Documents/Estudos, Unifor/Quarto semestre/Tecnologias de internet 1/javax.faces-2.2.9.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/danda_000/Documents/Estudos, Unifor/Quarto semestre/Tecnologias de internet 1/jstl-1.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/danda_000/Documents/Estudos, Unifor/Quarto semestre/Fundamento de banco de dados/Trabalho/sqljdbc_6.0/enu/sqljdbc42.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
