@@ -10,8 +10,9 @@ VALUES
 
 INSERT INTO Interprete(nome, tipo)
 VALUES
-('','Orquestra'), ('','Trio'), ('','Quarteto'), ('','Ensemble'),
-('','Soprano'), ('','Tenor'), ('Linkin Park','Banda')
+('Orquestra Filarmônica do Ceará','Orquestra'), ('Nirvana','Trio'), ('Coldplay','Quarteto'),
+('Eminem','Cantor'),('Jasmine Thompson','Cantora'), ('Linkin Park','Banda'),('Skrillex','DJ'),
+('Taylor Davis','Violinista'), ('Lindsey Stirling','Violinista')
 
 INSERT INTO Tipo_de_Composicao(descricao)
 VALUES

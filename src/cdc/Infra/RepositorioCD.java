@@ -3,6 +3,8 @@ package cdc.Infra;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import cdc.entitys.CD;
 
@@ -10,6 +12,18 @@ public class RepositorioCD {
 	public boolean adicionar(CD cd){
 		
 		return true;
+	}
+	
+	public ArrayList<CD> get(String desc){
+		ArrayList<CD> resultado = new ArrayList<CD>();
+		
+		CD cd = new CD();
+		cd.setDescricao("teste");
+		cd.setData_compra(new Timestamp(new java.util.Date().getTime()));
+		cd.setData_gravacao(new Timestamp(new java.util.Date().getTime()));
+		
+		resultado.add(cd);
+		return resultado;
 	}
 	
 	public boolean alterar(CD cd){

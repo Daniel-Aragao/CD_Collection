@@ -93,8 +93,9 @@ CREATE TABLE Faixa(
 	codigo INT NOT NULL PRIMARY KEY NONCLUSTERED IDENTITY,
 	numero INT NOT NULL,
 	tipo_gravacao CHAR(3) NOT NULL,
-	codigo_compositor INT NOT NULL FOREIGN KEY REFERENCES Compositor,
 	descricao VARCHAR(200) NOT NULL,
+	codigo_CD INT NOT NULL FOREIGN KEY REFERENCES CD,
+	codigo_compositor INT NOT NULL FOREIGN KEY REFERENCES Compositor,
 	tipo_composicao INT NOT NULL FOREIGN KEY REFERENCES Tipo_de_Composicao
 )
 

@@ -11,7 +11,7 @@ public class CD {
 	private Double preco_compra;
 	
 	public CD(){
-		
+		this.descricao = ""; 
 	}
 	
 	public int getCodigo() {
