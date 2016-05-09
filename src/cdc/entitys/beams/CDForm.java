@@ -1,17 +1,15 @@
 package cdc.entitys.beams;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
+import javax.faces.bean.SessionScoped;
 
 import cdc.Infra.RepositorioCD;
 import cdc.entitys.CD;
 
 @ManagedBean(name="CDForm")
-@RequestScoped
+@SessionScoped
 
 public class CDForm {
 	private CD cdSearch;
@@ -26,6 +24,8 @@ public class CDForm {
 	public String search(){
 		if(!cdSearch.getDescricao().isEmpty()){
 			lista = new RepositorioCD().get(cdSearch.getDescricao());			
+		}else{
+			lista = new ArrayList<CD>();
 		}
 		
 		return "index";

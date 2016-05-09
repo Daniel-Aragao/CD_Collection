@@ -2,6 +2,7 @@ package cdc.Infra;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -23,6 +24,33 @@ public class RepositorioCD {
 		cd.setData_gravacao(new Timestamp(new java.util.Date().getTime()));
 		
 		resultado.add(cd);
+		
+//		Connection con = null;		
+//		PreparedStatement stmt = null;
+//		
+//		try{
+//			con = Conexao.getConexao();
+//			stmt = con.prepareStatement("SELECT * FROM CD WHERE descricao LIKE ?");
+//			
+//			stmt.setString(1, "%"+desc+"%");
+//			ResultSet rs = stmt.executeQuery();
+//			while(rs.next()){
+//				CD cd = new CD(
+//						rs.getInt("codigo"), 
+//						rs.getInt("cod_label"),
+//						rs.getTimestamp("data_gravacao"),
+//						rs.getTimestamp("data_compra"),
+//						rs.getString("descricao"),
+//						rs.getDouble("preco_compra")); 
+//				
+//				resultado.add(cd);
+//			}
+//			
+//			
+//		}catch(SQLException ee){
+//			ee.printStackTrace();;
+//		}
+		
 		return resultado;
 	}
 	

@@ -9,7 +9,26 @@ public class CD {
 	private Timestamp data_compra;
 	private String descricao;
 	private Double preco_compra;
+		
+	public CD(int codigo, int cod_label, Timestamp data_gravacao, Timestamp data_compra, String descricao,
+			Double preco_compra) {
+		this.codigo = codigo;
+		this.cod_label = cod_label;
+		this.data_gravacao = data_gravacao;
+		this.data_compra = data_compra;
+		this.descricao = descricao;
+		this.preco_compra = preco_compra;
+	}
 	
+	public CD(int cod_label, Timestamp data_gravacao, Timestamp data_compra, String descricao,
+			Double preco_compra) {
+		this.cod_label = cod_label;
+		this.data_gravacao = data_gravacao;
+		this.data_compra = data_compra;
+		this.descricao = descricao;
+		this.preco_compra = preco_compra;
+	}
+
 	public CD(){
 		this.descricao = ""; 
 	}
