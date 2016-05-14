@@ -3,17 +3,17 @@ package cdc.entitys.beams;
 import java.util.ArrayList;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.view.ViewScoped;
 
 import cdc.Infra.RepositorioCD;
 import cdc.entitys.CD;
 
 @ManagedBean(name="CDForm")
-@SessionScoped
-
+@ViewScoped
 public class CDForm {
 	private CD cdSearch;
 	private ArrayList<CD> lista;
+	private CD cdSelected;
 	
 	
 	public CDForm (){

@@ -48,9 +48,9 @@ CREATE TABLE Telefone(
 CREATE TABLE CD(
 	codigo INT NOT NULL PRIMARY KEY IDENTITY,
 	cod_label INT NOT NULL FOREIGN KEY REFERENCES Label,
-	data_gravacao DATETIME NOT NULL, 
+	data_gravacao DATE NOT NULL, 
 	-- a data de gravacao deve ser posterior a 01.01.2000
-	data_compra DATETIME NOT NULL,
+	data_compra DATE NOT NULL,
 	descricao VARCHAR(200) NOT NULL,
 	preco_compra DECIMAL(10,2) NOT NULL, 
 	-- e o preco deve ser menor ou igual que 3x a media do preco de compra de 
@@ -62,8 +62,8 @@ CREATE TABLE CD(
 CREATE TABLE Periodo_Musical(
 	codigo INT NOT NULL PRIMARY KEY IDENTITY,
 	descricao varchar(50) NOT NULL,
-	data_inicial DATETIME NOT NULL,
-	data_final DATETIME NOT NULL
+	data_inicial DATE NOT NULL,
+	data_final DATE NOT NULL
 )
 
 
