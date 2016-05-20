@@ -1,13 +1,12 @@
-CREATE TRIGGER CD_TR_periodo_barroco
-	ON CD
+CREATE TRIGGER Faixa_TR_periodo_barroco
+	ON Faixa
 	FOR INSERT, UPDATE
 	AS
 	
-	IF (SELECT tipo_gravacão FROM Inserted INNER JOIN CD WHERE Inserted.codigo_CD = CD.codigo) <> 'DDD'
-	AND (SELECT data_gravacao FROM CD INNER JOIN Inserted WHERE Inserted.codigo_CD = CD.codigo)
-	BETWEEN ´01/01/1600´ AND ´01/01/1700´
-
+	IF (SELECT tipo_gravacão FROM Inserted) <> 'DDD'
+	AND (SELECT descricao FROM Periodo_Musical INNER JOIN Compositor ON (codigo = codigo_periodo_musical) 
+	INNER JOIN Faixa_por_compositor ON (codigo = codigo_compositor) INNER JOIN Inserted ON (codigo_faixa = codigo) = 'Barroco'
 	BEGIN 
-		RAISERROR ('Faixa do Periodo Barroco, necessaria gravacao tipo DDD')
+		RAISERROR ('Faixa do Periodo Barroco, necessita gravacao tipo DDD')
 		ROLLBACK TRANSACTION
 	END
