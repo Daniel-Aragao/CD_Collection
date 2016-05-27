@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 
 import cdc.Infra.RepositorioCD;
 import cdc.entitys.CD;
+import cdc.graphics.listeners.SalvarListener;
 
 public class EditFieldsPanel {
 	private JPanel panel;
@@ -39,6 +40,8 @@ public class EditFieldsPanel {
 	private JButton btnCancelar;	
 	
 	private CD selectedCD;
+	
+	private SalvarListener salvarListener;
 		
 	public EditFieldsPanel(){
 		panel = new JPanel();
@@ -219,25 +222,50 @@ public class EditFieldsPanel {
 	}
 
 	private void salvar() {
-		selectedCD.setCod_label(Integer.parseInt(this.cod_label.getText()));
-		selectedCD.setDescricao(this.descricao.getText());    
-		selectedCD.setPreco_compra(Double.parseDouble(this.preco_compra.getText())); 
-		
-		
-		String[] dtGrav = this.data_gravacao.getText().split("/");
-		String[] dtComp = this.data_compra.getText().split("/");
-		
-		Calendar aux = Calendar.getInstance();
-		aux.set(Integer.parseInt(dtGrav[2]), 
-				Integer.parseInt(dtGrav[1]), 
-				Integer.parseInt(dtGrav[0]));
-		selectedCD.setData_gravacao(aux);
-		
-		aux.set(Integer.parseInt(dtComp[2]), 
-				Integer.parseInt(dtComp[1]), 
-				Integer.parseInt(dtComp[0]));
-		selectedCD.setData_compra(aux);
-		new RepositorioCD().alterar(selectedCD);
+		if(selectedCD != null){
+			
+			selectedCD.setCod_label(Integer.parseInt(this.cod_label.getText()));
+			selectedCD.setDescricao(this.descricao.getText());    
+			selectedCD.setPreco_compra(Double.parseDouble(this.preco_compra.getText())); 
+			
+			
+			String[] dtGrav = this.data_gravacao.getText().split("/");
+			String[] dtComp = this.data_compra.getText().split("/");
+			
+			Calendar aux = Calendar.getInstance();
+			aux.set(Integer.parseInt(dtGrav[2]), 
+					Integer.parseInt(dtGrav[1]), 
+					Integer.parseInt(dtGrav[0]));
+			selectedCD.setData_gravacao(aux);
+			
+			aux.set(Integer.parseInt(dtComp[2]), 
+					Integer.parseInt(dtComp[1]), 
+					Integer.parseInt(dtComp[0]));
+			selectedCD.setData_compra(aux);
+			
+			if(salvarListener != null){
+				salvarListener.saveClicked(selectedCD);			
+			}else{
+				System.err.println("salvarListener null");
+			}			
+		}else{
+			throw new RuntimeException("EditFieldsPanel.selectedCD - não inicializado");
+		}
+	}
+
+	public SalvarListener getSalvarListener() {
+		return salvarListener;
+	}
+
+	public void setSalvarListener(SalvarListener salvarListener) {
+		this.salvarListener = salvarListener;
+	}
+
+	public CD getSelectedCD() {
+		return selectedCD;
+	}
+	public void setNewCD(){
+		cleanFields();
 	}
 	
 }

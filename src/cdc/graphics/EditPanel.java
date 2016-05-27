@@ -5,7 +5,9 @@ import java.awt.BorderLayout;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import cdc.Infra.RepositorioCD;
 import cdc.entitys.CD;
+import cdc.graphics.listeners.SalvarListener;
 import cdc.graphics.listeners.SelectedCDListener;
 import cdc.graphics.subPanels.EditFieldsPanel;
 import cdc.graphics.subPanels.ListPanel;
@@ -27,6 +29,12 @@ public class EditPanel {
 			@Override
 			public void selected(CD cd) {
 				editFieldsPanel.setSelectedCD(cd);				
+			}
+		});
+		editFieldsPanel.setSalvarListener(new SalvarListener() {			
+			@Override
+			public void saveClicked(CD cd) {
+				new RepositorioCD().alterar(cd);
 			}
 		});
 				

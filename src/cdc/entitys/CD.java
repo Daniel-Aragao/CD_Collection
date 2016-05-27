@@ -1,8 +1,7 @@
 package cdc.entitys;
 
-import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class CD {
 	private int codigo;
@@ -11,6 +10,8 @@ public class CD {
 	private Calendar data_compra;
 	private String descricao;
 	private Double preco_compra;
+	
+	private ArrayList<Faixa> faixas;
 		
 	public CD(int codigo, int cod_label, Calendar data_gravacao, Calendar data_compra, String descricao,
 			Double preco_compra) {
@@ -20,6 +21,7 @@ public class CD {
 		this.data_compra = data_compra;
 		this.descricao = descricao;
 		this.preco_compra = preco_compra;
+		faixas = new ArrayList<Faixa>();
 	}
 	
 	public CD(int cod_label, Calendar data_gravacao, Calendar data_compra, String descricao,
@@ -29,10 +31,12 @@ public class CD {
 		this.data_compra = data_compra;
 		this.descricao = descricao;
 		this.preco_compra = preco_compra;
+		faixas = new ArrayList<Faixa>();
 	}
 
 	public CD(){
 		this.descricao = ""; 
+		faixas = new ArrayList<Faixa>();
 	}
 	@Override
 	public String toString(){
@@ -74,5 +78,13 @@ public class CD {
 	}
 	public void setPreco_compra(Double preco_compra) {
 		this.preco_compra = preco_compra;
+	}
+
+	public ArrayList<Faixa> getFaixas() {
+		return faixas;
+	}
+
+	public void setFaixas(ArrayList<Faixa> faixas) {
+		this.faixas = faixas;
 	}
 }
