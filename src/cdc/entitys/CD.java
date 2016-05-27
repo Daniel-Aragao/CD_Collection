@@ -1,16 +1,18 @@
 package cdc.entitys;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 
 public class CD {
 	private int codigo;
 	private int cod_label;
-	private Timestamp data_gravacao;
-	private Timestamp data_compra;
+	private Calendar data_gravacao;
+	private Calendar data_compra;
 	private String descricao;
 	private Double preco_compra;
 		
-	public CD(int codigo, int cod_label, Timestamp data_gravacao, Timestamp data_compra, String descricao,
+	public CD(int codigo, int cod_label, Calendar data_gravacao, Calendar data_compra, String descricao,
 			Double preco_compra) {
 		this.codigo = codigo;
 		this.cod_label = cod_label;
@@ -20,7 +22,7 @@ public class CD {
 		this.preco_compra = preco_compra;
 	}
 	
-	public CD(int cod_label, Timestamp data_gravacao, Timestamp data_compra, String descricao,
+	public CD(int cod_label, Calendar data_gravacao, Calendar data_compra, String descricao,
 			Double preco_compra) {
 		this.cod_label = cod_label;
 		this.data_gravacao = data_gravacao;
@@ -31,6 +33,10 @@ public class CD {
 
 	public CD(){
 		this.descricao = ""; 
+	}
+	@Override
+	public String toString(){
+		return this.descricao;
 	}
 	
 	public int getCodigo() {
@@ -45,16 +51,16 @@ public class CD {
 	public void setCod_label(int cod_label) {
 		this.cod_label = cod_label;
 	}
-	public Timestamp getData_gravacao() {
+	public Calendar getData_gravacao() {
 		return data_gravacao;
 	}
-	public void setData_gravacao(Timestamp data_gravacao) {
+	public void setData_gravacao(Calendar data_gravacao) {
 		this.data_gravacao = data_gravacao;
 	}
-	public Timestamp getData_compra() {
+	public Calendar getData_compra() {
 		return data_compra;
 	}
-	public void setData_compra(Timestamp data_compra) {
+	public void setData_compra(Calendar data_compra) {
 		this.data_compra = data_compra;
 	}
 	public String getDescricao() {

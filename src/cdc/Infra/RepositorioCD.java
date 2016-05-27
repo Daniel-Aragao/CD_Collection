@@ -2,10 +2,9 @@ package cdc.Infra;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import cdc.entitys.CD;
 
@@ -19,10 +18,10 @@ public class RepositorioCD {
 		ArrayList<CD> resultado = new ArrayList<CD>();
 		
 		CD cd = new CD();
-		cd.setDescricao("teste");
-		cd.setData_compra(new Timestamp(new java.util.Date().getTime()));
-		cd.setData_gravacao(new Timestamp(new java.util.Date().getTime()));
-		
+		cd.setDescricao("teste teste teste teste teste teste teste teste teste");
+		cd.setData_compra(Calendar.getInstance());
+		cd.setData_gravacao(Calendar.getInstance());
+		cd.setPreco_compra(2.3);
 		resultado.add(cd);
 		
 //		Connection con = null;		
@@ -30,7 +29,7 @@ public class RepositorioCD {
 //		
 //		try{
 //			con = Conexao.getConexao();
-//			stmt = con.prepareStatement("SELECT * FROM CD WHERE descricao LIKE ?");
+//			stmt = con.prepareStatement("SELECT * FROM CD WHERE descricao LIKE ? ORDERBY descricao");
 //			
 //			stmt.setString(1, "%"+desc+"%");
 //			ResultSet rs = stmt.executeQuery();
@@ -61,17 +60,17 @@ public class RepositorioCD {
 		try {
 			con = Conexao.getConexao();
 			stmt = con.prepareStatement(
-					"UPDATE pessoa SET nome = ?, rua = ?, numero = ?, complemento = ?, bairro = ?, cep = ?, cidadeId = ?, estadoId =? WHERE id = ?");
+					"UPDATE CD "
+					+ "SET codigo = ?, cod_label = ?, data_compra = ?, "
+					+ "data_gravacao = ?, descricao = ?, preco_compra = ? "
+					+ "WHERE codigo = ?");
 
-//			stmt.setString(1, pessoa.getNome());
-//			stmt.setString(2, pessoa.getRua());
-//			stmt.setInt(3, pessoa.getNumero());
-//			stmt.setString(4, pessoa.getComplemento());
-//			stmt.setString(5, pessoa.getBairro());
-//			stmt.setString(6, pessoa.getCep());
-//			stmt.setInt(7, pessoa.getCidadeId());
-//			stmt.setInt(8, pessoa.getEstadoId());
-//			stmt.setInt(9, pessoa.getId());
+			stmt.setLong(1, cd.getCodigo());
+			stmt.setLong(2, cd.getCod_label());
+			stmt.setDate(3, new java.sql.Date(cd.getData_compra().getTimeInMillis()));
+			stmt.setDate(4, new java.sql.Date(cd.getData_gravacao().getTimeInMillis()));
+			stmt.setString(5, cd.getDescricao());
+			stmt.setDouble(6, cd.getPreco_compra());
 
 			stmt.executeUpdate();
 			return true;
