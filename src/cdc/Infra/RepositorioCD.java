@@ -61,16 +61,16 @@ public class RepositorioCD {
 			con = Conexao.getConexao();
 			stmt = con.prepareStatement(
 					"UPDATE CD "
-					+ "SET codigo = ?, cod_label = ?, data_compra = ?, "
+					+ "SET cod_label = ?, data_compra = ?, "
 					+ "data_gravacao = ?, descricao = ?, preco_compra = ? "
 					+ "WHERE codigo = ?");
 
-			stmt.setLong(1, cd.getCodigo());
-			stmt.setLong(2, cd.getCod_label());
-			stmt.setDate(3, new java.sql.Date(cd.getData_compra().getTimeInMillis()));
-			stmt.setDate(4, new java.sql.Date(cd.getData_gravacao().getTimeInMillis()));
-			stmt.setString(5, cd.getDescricao());
-			stmt.setDouble(6, cd.getPreco_compra());
+			stmt.setLong(1, cd.getCod_label());
+			stmt.setDate(2, new java.sql.Date(cd.getData_compra().getTimeInMillis()));
+			stmt.setDate(3, new java.sql.Date(cd.getData_gravacao().getTimeInMillis()));
+			stmt.setString(4, cd.getDescricao());
+			stmt.setDouble(5, cd.getPreco_compra());
+			stmt.setDouble(6, cd.getCodigo());
 
 			stmt.executeUpdate();
 			return true;
