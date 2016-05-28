@@ -163,7 +163,6 @@ public class FaixasNovasPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				adicionar();
-				cleanFields();
 			}
 		});
 		btnExcluir.addActionListener(new ActionListener() {			
@@ -201,6 +200,7 @@ public class FaixasNovasPanel {
 					tipo_composicao);
 			
 			adicionarFaixa(f);
+			cleanFields();
 		}catch(NumberFormatException ne){
 			JOptionPane.showMessageDialog(null, "Um ou mais campos Inválidos");
 		}

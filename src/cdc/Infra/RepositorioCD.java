@@ -19,8 +19,6 @@ public class RepositorioCD {
 		PreparedStatement stmt = null;
 		
 		try{
-				
-			
 			con = Conexao.getConexao();
 			
 			PreparedStatement CDStmt = null;
@@ -70,11 +68,11 @@ public class RepositorioCD {
 		            try {
 		                System.err.print("Transaction is being rolled back");
 		                con.rollback();
-		                return false;
 		            } catch(SQLException excep) {
 		            	excep.printStackTrace();
 		            }
 		        }
+		        return false;
 		    } finally {
 		        if (CDStmt != null) {
 		        	CDStmt.close();
@@ -86,6 +84,7 @@ public class RepositorioCD {
 		    }
 		}catch(SQLException sqle){
 			sqle.printStackTrace();
+			return false;
 		}
 	    return true;
 	}
@@ -94,38 +93,44 @@ public class RepositorioCD {
 	public ArrayList<CD> get(String desc){
 		ArrayList<CD> resultado = new ArrayList<CD>();
 		
-		CD cd = new CD();
-		cd.setDescricao("teste teste teste teste teste teste teste teste teste");
-		cd.setData_compra(Calendar.getInstance());
-		cd.setData_gravacao(Calendar.getInstance());
-		cd.setPreco_compra(2.3);
-		resultado.add(cd);
+//		CD cd = new CD();
+//		cd.setDescricao("teste teste teste teste teste teste teste teste teste");
+//		cd.setData_compra(Calendar.getInstance());
+//		cd.setData_gravacao(Calendar.getInstance());
+//		cd.setPreco_compra(2.3);
+//		resultado.add(cd);
 		
-//		Connection con = null;		
-//		PreparedStatement stmt = null;
-//		
-//		try{
-//			con = Conexao.getConexao();
-//			stmt = con.prepareStatement("SELECT * FROM CD WHERE descricao LIKE ? ORDERBY descricao");
-//			
-//			stmt.setString(1, "%"+desc+"%");
-//			ResultSet rs = stmt.executeQuery();
-//			while(rs.next()){
-//				CD cd = new CD(
-//						rs.getInt("codigo"), 
-//						rs.getInt("cod_label"),
-//						rs.getTimestamp("data_gravacao"),
-//						rs.getTimestamp("data_compra"),
-//						rs.getString("descricao"),
-//						rs.getDouble("preco_compra")); 
-//				
-//				resultado.add(cd);
-//			}
-//			
-//			
-//		}catch(SQLException ee){
-//			ee.printStackTrace();;
-//		}
+		Connection con = null;		
+		PreparedStatement stmt = null;
+		
+		try{
+			con = Conexao.getConexao();
+			stmt = con.prepareStatement("SELECT * FROM CD WHERE descricao LIKE ? ORDER BY descricao");
+			
+			stmt.setString(1, "%"+desc+"%");
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()){
+				Calendar dt_grav = Calendar.getInstance();
+				Calendar dt_compr = Calendar.getInstance();
+				
+				dt_grav.setTime(rs.getDate("data_gravacao"));
+				dt_compr.setTime(rs.getDate("data_compra"));
+				
+				CD cd = new CD(
+						rs.getInt("codigo"), 
+						rs.getInt("cod_label"),
+						dt_grav,
+						dt_compr,
+						rs.getString("descricao"),
+						rs.getDouble("preco_compra")); 
+				
+				resultado.add(cd);
+			}
+			
+			
+		}catch(SQLException ee){
+			ee.printStackTrace();;
+		}
 		
 		return resultado;
 	}

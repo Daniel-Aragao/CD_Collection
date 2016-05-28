@@ -42,8 +42,9 @@ public class AddPanel {
 		if(cd.getFaixas() == null || cd.getFaixas().isEmpty()){
 			JOptionPane.showMessageDialog(null, "Adicione novas faixas para o cd antes de salva-lo");
 		}else{
-			new RepositorioCD().adicionar(cd);
-			JOptionPane.showMessageDialog(null, "Salvo!");
+			if(new RepositorioCD().adicionar(cd)){
+				JOptionPane.showMessageDialog(null, "Salvo!");				
+			}
 		}
 //		throw new RuntimeException("AddPanel.saveCD() - Não implementado");
 	}

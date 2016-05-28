@@ -77,8 +77,7 @@ public class EditFieldsPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				salvar();
-				
+				salvar();				
 			}
 		});
 		
@@ -190,9 +189,9 @@ public class EditFieldsPanel {
 		cod_label.setText(cd.getCod_label() +"");
 		
 		Calendar aux = cd.getData_gravacao();
-		data_gravacao.setText(aux.get(Calendar.DAY_OF_MONTH)+"/"+aux.get(Calendar.MONTH)+"/"+aux.get(Calendar.YEAR));
+		data_gravacao.setText(aux.get(Calendar.DAY_OF_MONTH)+"/"+(aux.get(Calendar.MONTH)+1)+"/"+aux.get(Calendar.YEAR));
 		aux = cd.getData_compra();
-		data_compra.setText(aux.get(Calendar.DAY_OF_MONTH)+"/"+aux.get(Calendar.MONTH)+"/"+aux.get(Calendar.YEAR));  
+		data_compra.setText(aux.get(Calendar.DAY_OF_MONTH)+"/"+(aux.get(Calendar.MONTH)+1)+"/"+aux.get(Calendar.YEAR));  
 		
 		descricao.setText(cd.getDescricao() +"");    
 		preco_compra.setText(cd.getPreco_compra() +""); 
@@ -235,13 +234,14 @@ public class EditFieldsPanel {
 				Calendar aux = Calendar.getInstance();
 				aux.clear();
 				aux.set(Integer.parseInt(dtGrav[2]), 
-						Integer.parseInt(dtGrav[1]), 
+						Integer.parseInt(dtGrav[1])-1, 
 						Integer.parseInt(dtGrav[0]));
 				selectedCD.setData_gravacao(aux);
 				
+				aux = Calendar.getInstance();
 				aux.clear();
 				aux.set(Integer.parseInt(dtComp[2]), 
-						Integer.parseInt(dtComp[1]), 
+						Integer.parseInt(dtComp[1])-1, 
 						Integer.parseInt(dtComp[0]));
 				selectedCD.setData_compra(aux);
 				

@@ -64,9 +64,13 @@ public class ListPanel {
 			
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				if(selectedListener != null)
-				selectedListener.selected(jlist.getSelectedValue());
-				
+				if(selectedListener != null){
+					CD cd = jlist.getSelectedValue();
+					if(cd != null){
+						selectedListener.selected(jlist.getSelectedValue());
+						
+					}					
+				}				
 			}
 		});
 		
