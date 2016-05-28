@@ -82,8 +82,7 @@ public class ListPanel {
 		
 	}
 	private void createListModel(){
-		 this.model = new DefaultListModel<CD>();
-		 
+		 this.model = new DefaultListModel<CD>();		 
 		 		
 		jlist.setModel(this.model);
 	}

@@ -1,18 +1,95 @@
 package cdc.Infra;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import cdc.entitys.CD;
+import cdc.entitys.Faixa;
 
 public class RepositorioCD {
+	
 	public boolean adicionar(CD cd){
+		Connection con = null;		
+		PreparedStatement stmt = null;
 		
-		return true;
+		try{
+				
+			
+			con = Conexao.getConexao();
+			
+			PreparedStatement CDStmt = null;
+			PreparedStatement FaixaStmt = null;
+	
+			String InsertCD =
+				"INSERT INTO CD(cod_label, data_gravacao, data_compra, descricao, preco_compra) "
+				+"VALUES "
+				+"(?,?,?,?,?)";
+	
+		    String InsertFaixa =
+	    		"INSERT INTO Faixa(codigo_CD, codigo_compositor, "
+	    		+ "descricao, numero, tipo_composicao, tipo_gravacao)VALUES " 
+	    		+"(?,?,?,?,?,?)";
+			    		
+	
+		    try {
+		        con.setAutoCommit(false);
+		        CDStmt = con.prepareStatement(InsertCD, Statement.RETURN_GENERATED_KEYS);
+		        FaixaStmt = con.prepareStatement(InsertFaixa);
+		        
+		        CDStmt.setInt(1, cd.getCod_label());
+		        CDStmt.setDate(2, new Date(cd.getData_gravacao().getTimeInMillis()));
+		        CDStmt.setDate(3, new Date(cd.getData_compra().getTimeInMillis()));
+		        CDStmt.setString(4, cd.getDescricao());
+		        CDStmt.setDouble(5, cd.getPreco_compra());
+		        
+		        CDStmt.executeUpdate();
+		        ResultSet result = CDStmt.getGeneratedKeys();
+		        result.next();
+		        int codigo = result.getInt(1);
+
+		        for (Faixa faixa : cd.getFaixas()) {
+		        	FaixaStmt.setInt(1, codigo);
+		        	FaixaStmt.setInt(2, faixa.getCodigo_compositor());
+		        	FaixaStmt.setString(3, faixa.getDescricao());
+		        	FaixaStmt.setInt(4, faixa.getNumero());
+		        	FaixaStmt.setInt(5, faixa.getTipo_composicao());
+		        	FaixaStmt.setString(6, faixa.getTipo_gravacao());
+		        	
+		        	FaixaStmt.executeUpdate();
+		        }
+		        con.commit();
+		    } catch (SQLException e ) {
+		    	e.printStackTrace();
+		        if (con != null) {
+		            try {
+		                System.err.print("Transaction is being rolled back");
+		                con.rollback();
+		                return false;
+		            } catch(SQLException excep) {
+		            	excep.printStackTrace();
+		            }
+		        }
+		    } finally {
+		        if (CDStmt != null) {
+		        	CDStmt.close();
+		        }
+		        if (FaixaStmt != null) {
+		        	FaixaStmt.close();
+		        }
+		        con.setAutoCommit(true);
+		    }
+		}catch(SQLException sqle){
+			sqle.printStackTrace();
+		}
+	    return true;
 	}
+	
 	
 	public ArrayList<CD> get(String desc){
 		ArrayList<CD> resultado = new ArrayList<CD>();

@@ -12,10 +12,10 @@ import java.util.Calendar;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import cdc.Infra.RepositorioCD;
 import cdc.entitys.CD;
 import cdc.graphics.listeners.SalvarListener;
 
@@ -223,31 +223,37 @@ public class EditFieldsPanel {
 
 	private void salvar() {
 		if(selectedCD != null){
-			
-			selectedCD.setCod_label(Integer.parseInt(this.cod_label.getText()));
-			selectedCD.setDescricao(this.descricao.getText());    
-			selectedCD.setPreco_compra(Double.parseDouble(this.preco_compra.getText())); 
-			
-			
-			String[] dtGrav = this.data_gravacao.getText().split("/");
-			String[] dtComp = this.data_compra.getText().split("/");
-			
-			Calendar aux = Calendar.getInstance();
-			aux.set(Integer.parseInt(dtGrav[2]), 
-					Integer.parseInt(dtGrav[1]), 
-					Integer.parseInt(dtGrav[0]));
-			selectedCD.setData_gravacao(aux);
-			
-			aux.set(Integer.parseInt(dtComp[2]), 
-					Integer.parseInt(dtComp[1]), 
-					Integer.parseInt(dtComp[0]));
-			selectedCD.setData_compra(aux);
-			
-			if(salvarListener != null){
-				salvarListener.saveClicked(selectedCD);			
-			}else{
-				System.err.println("salvarListener null");
-			}			
+			try{					
+				selectedCD.setCod_label(Integer.parseInt(this.cod_label.getText()));
+				selectedCD.setDescricao(this.descricao.getText());    
+				selectedCD.setPreco_compra(Double.parseDouble(this.preco_compra.getText())); 
+				
+				
+				String[] dtGrav = this.data_gravacao.getText().split("/");
+				String[] dtComp = this.data_compra.getText().split("/");
+				
+				Calendar aux = Calendar.getInstance();
+				aux.clear();
+				aux.set(Integer.parseInt(dtGrav[2]), 
+						Integer.parseInt(dtGrav[1]), 
+						Integer.parseInt(dtGrav[0]));
+				selectedCD.setData_gravacao(aux);
+				
+				aux.clear();
+				aux.set(Integer.parseInt(dtComp[2]), 
+						Integer.parseInt(dtComp[1]), 
+						Integer.parseInt(dtComp[0]));
+				selectedCD.setData_compra(aux);
+				
+				if(salvarListener != null){
+					salvarListener.saveClicked(selectedCD);
+				}else{
+					System.err.println("salvarListener null");
+				}			
+			}catch(NumberFormatException ne){
+				JOptionPane.showMessageDialog(null, "Um ou mais campos Inválidos");
+				ne.printStackTrace();
+			}
 		}else{
 			throw new RuntimeException("EditFieldsPanel.selectedCD - não inicializado");
 		}
