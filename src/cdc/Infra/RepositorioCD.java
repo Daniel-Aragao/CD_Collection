@@ -23,22 +23,31 @@ public class RepositorioCD {
 			
 			PreparedStatement CDStmt = null;
 			PreparedStatement FaixaStmt = null;
-	
+			PreparedStatement Faixa_CompositorStmt = null;
+			PreparedStatement Faixa_InterpreteStmt = null;
+			
 			String InsertCD =
 				"INSERT INTO CD(cod_label, data_gravacao, data_compra, descricao, preco_compra) "
 				+"VALUES "
 				+"(?,?,?,?,?)";
 	
 		    String InsertFaixa =
-	    		"INSERT INTO Faixa(codigo_CD, codigo_compositor, "
+	    		"INSERT INTO Faixa(codigo_CD, "
 	    		+ "descricao, numero, tipo_composicao, tipo_gravacao)VALUES " 
-	    		+"(?,?,?,?,?,?)";
+	    		+"(?,?,?,?,?)";
+		    
+		    String InsertFaixa_Compositor = "INSERT INTO Faixa_por_compositor (codigo_faixa, codigo_compositor) "
+		    		+ "VALUES (?, ?)" ;
+		    String InsertFaixa_Interprete = "INSERT INTO Faixa_por_interprete (codigo_faixa, codigo_interprete) "
+		    		+ "VALUES (?, ?)";
 			    		
 	
 		    try {
 		        con.setAutoCommit(false);
 		        CDStmt = con.prepareStatement(InsertCD, Statement.RETURN_GENERATED_KEYS);
-		        FaixaStmt = con.prepareStatement(InsertFaixa);
+		        FaixaStmt = con.prepareStatement(InsertFaixa, Statement.RETURN_GENERATED_KEYS);
+		        Faixa_CompositorStmt = con.prepareStatement(InsertFaixa_Compositor);
+		        Faixa_InterpreteStmt = con.prepareStatement(InsertFaixa_Interprete);
 		        
 		        CDStmt.setInt(1, cd.getCod_label());
 		        CDStmt.setDate(2, new Date(cd.getData_gravacao().getTimeInMillis()));
@@ -53,13 +62,24 @@ public class RepositorioCD {
 
 		        for (Faixa faixa : cd.getFaixas()) {
 		        	FaixaStmt.setInt(1, codigo);
-		        	FaixaStmt.setInt(2, faixa.getCodigo_compositor());
-		        	FaixaStmt.setString(3, faixa.getDescricao());
-		        	FaixaStmt.setInt(4, faixa.getNumero());
-		        	FaixaStmt.setInt(5, faixa.getTipo_composicao());
-		        	FaixaStmt.setString(6, faixa.getTipo_gravacao());
+		        	FaixaStmt.setString(2, faixa.getDescricao());
+		        	FaixaStmt.setInt(3, faixa.getNumero());
+		        	FaixaStmt.setInt(4, faixa.getTipo_composicao());
+		        	FaixaStmt.setString(5, faixa.getTipo_gravacao());
 		        	
 		        	FaixaStmt.executeUpdate();
+		        	ResultSet resultFaixa = FaixaStmt.getGeneratedKeys();
+		        	resultFaixa.next();
+			        int codigoFaixa = resultFaixa.getInt(1);
+		        	
+		        	Faixa_CompositorStmt.setInt(1, codigoFaixa);
+		        	Faixa_CompositorStmt.setInt(2, faixa.getCodigo_compositor());
+		        	
+		        	Faixa_InterpreteStmt.setInt(1, codigoFaixa);
+		        	Faixa_InterpreteStmt.setInt(2, faixa.getCodigo_interprete());
+		        	
+		        	Faixa_CompositorStmt.executeUpdate();
+		        	Faixa_InterpreteStmt.executeUpdate();
 		        }
 		        con.commit();
 		    } catch (SQLException e ) {

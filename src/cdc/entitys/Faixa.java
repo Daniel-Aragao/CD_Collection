@@ -7,24 +7,28 @@ public class Faixa {
 	private String descricao; //VARCHAR(200)
 	private int codigo_CD;
 	private int codigo_compositor;
+	private int codigo_interprete;
 	private int tipo_composicao;
 	
 	public Faixa(int codigo, int numero, String tipo_gravacao, String descricao, int codigo_CD, int codigo_compositor,
-			int tipo_composicao) {
+			int codigo_interprete, int tipo_composicao) {
 		this.codigo = codigo;
 		this.numero = numero;
 		this.tipo_gravacao = tipo_gravacao;
 		this.descricao = descricao;
 		this.codigo_CD = codigo_CD;
 		this.codigo_compositor = codigo_compositor;
+		this.codigo_interprete = codigo_interprete;
 		this.tipo_composicao = tipo_composicao;
 	}
 	
-	public Faixa(int numero, String tipo_gravacao, String descricao, int codigo_compositor, int tipo_composicao) {		
+	public Faixa(int numero, String tipo_gravacao, String descricao, 
+			int codigo_compositor, int codigo_interprete, int tipo_composicao) {		
 		this.numero = numero;
 		this.tipo_gravacao = tipo_gravacao;
 		this.descricao = descricao;
 		this.codigo_compositor = codigo_compositor;
+		this.codigo_interprete = codigo_interprete;
 		this.tipo_composicao = tipo_composicao;
 	}
 	@Override
@@ -72,5 +76,13 @@ public class Faixa {
 	}
 	public void setTipo_composicao(int tipo_composicao) {
 		this.tipo_composicao = tipo_composicao;
+	}
+
+	public int getCodigo_interprete() {
+		return codigo_interprete;
+	}
+
+	public void setCodigo_interprete(int codigo_interprete) {
+		this.codigo_interprete = codigo_interprete;
 	}
 }

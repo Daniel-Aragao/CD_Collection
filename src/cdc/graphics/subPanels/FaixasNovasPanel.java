@@ -31,11 +31,13 @@ public class FaixasNovasPanel {
 	private JTextField tipo_gravacao;
 	private JTextField descricao;
 	private JTextField codigo_compositor;
+	private JTextField codigo_interprete;
 	private JTextField tipo_composicao;
 	
 	private JLabel tipo_gravacaoLabel;
 	private JLabel descricaoLabel;
 	private JLabel codigo_compositorLabel;
+	private JLabel codigo_interpreteLabel;
 	private JLabel tipo_composicaoLabel;
 	
 	private JButton btnAdicionar;
@@ -58,11 +60,13 @@ public class FaixasNovasPanel {
 		tipo_gravacao = new JTextField(8);
 		descricao = new JTextField(8);
 		codigo_compositor = new JTextField(8);
+		codigo_interprete = new JTextField(8);
 		tipo_composicao = new JTextField(8);
 		
 		tipo_gravacaoLabel = new JLabel("Tipo de gravação");
 		descricaoLabel = new JLabel("Descrição");
 		codigo_compositorLabel = new JLabel("Código do compositor");
+		codigo_interpreteLabel = new JLabel("Código do Interprete"); 
 		tipo_composicaoLabel = new JLabel("Tipo de composição");
 		
 		btnAdicionar = new JButton("Adicionar");
@@ -124,6 +128,16 @@ public class FaixasNovasPanel {
 		
 		//Fifth Line//
 		gc.gridy = 5;
+		gc.anchor = GridBagConstraints.SOUTH;
+		panel.add(codigo_interpreteLabel, gc);
+		
+		//Sixth Line//
+		gc.gridy = 6;
+		gc.anchor = GridBagConstraints.NORTH;
+		panel.add(codigo_interprete, gc);
+		
+		//Seventh Line//
+		gc.gridy = 7;
 		gc.anchor = GridBagConstraints.CENTER;
 		panel.add(btnAdicionar, gc);
 		
@@ -152,8 +166,8 @@ public class FaixasNovasPanel {
 		gc.anchor = GridBagConstraints.NORTH;
 		panel.add(tipo_composicao , gc);
 		
-		//Fifth Line//
-		gc.gridy = 5;
+		//Seventh Line//
+		gc.gridy = 7;
 		gc.anchor = GridBagConstraints.CENTER;
 		panel.add(btnExcluir, gc);
 	}
@@ -180,7 +194,8 @@ public class FaixasNovasPanel {
 		tipo_gravacao.setText("");
 		descricao.setText("");       
 		codigo_compositor.setText("");
-		tipo_composicao.setText("");		
+		tipo_composicao.setText("");	
+		codigo_interprete.setText("");
 	}
 
 	protected void adicionar() {
@@ -189,6 +204,7 @@ public class FaixasNovasPanel {
 			String tipo_gravacao = this.tipo_gravacao.getText();
 			String descricao = this.descricao.getText();
 			int codigo_compositor = Integer.parseInt(this.codigo_compositor.getText());
+			int codigo_interprete = Integer.parseInt(this.codigo_interprete.getText());
 			int tipo_composicao = Integer.parseInt(this.tipo_composicao.getText());
 			
 			
@@ -196,7 +212,8 @@ public class FaixasNovasPanel {
 					getFaixaNumero(), 
 					tipo_gravacao, 
 					descricao, 
-					codigo_compositor, 
+					codigo_compositor,
+					codigo_interprete,
 					tipo_composicao);
 			
 			adicionarFaixa(f);
