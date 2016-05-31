@@ -1,0 +1,1 @@
+SELECT nome FROM Label WHERE MAX( SELECT AVG(c.preco_compra) FROM CD c, Label l WHERE c.cod_label = l.codigo)
