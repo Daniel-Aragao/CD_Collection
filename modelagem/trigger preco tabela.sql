@@ -7,7 +7,7 @@ CREATE TRIGGER CD_Data_Preco
 		
 SELECT @media = AVG(cds.preco_compra)
 FROM 
-(SELECT cd.(*) FROM CD cd EXCEPT SELECT cd.(*) FROM CD cd JOIN Faixa f ON f.codigo_CD = cd.codigo WHERE f.tipo_gravacao <> 'DDD') cds
+(SELECT cd.* FROM CD cd EXCEPT SELECT cd.* FROM CD cd JOIN Faixa f ON f.codigo_CD = cd.codigo WHERE f.tipo_gravacao <> 'DDD') cds
 
 SELECT @preco = i.preco_compra FROM inserted i
 
