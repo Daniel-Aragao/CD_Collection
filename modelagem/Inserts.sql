@@ -33,3 +33,6 @@ VALUES
 
 INSERT INTO Label (endereco, endereco_site, nome)
 VALUES ('rua de teste do bairro testante', 'www.teste.com.br', 'teste S/A')
+
+INSERT INTO LABEL (endereco, endereco_site, nome)
+VALUES ('rua do teste','www.teste.org','Test Organization')
