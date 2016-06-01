@@ -48,8 +48,7 @@ CREATE TABLE Telefone(
 CREATE TABLE CD(
 	codigo INT NOT NULL PRIMARY KEY IDENTITY,
 	cod_label INT NOT NULL FOREIGN KEY REFERENCES Label,
-	data_gravacao DATE NOT NULL, 
-	-- a data de gravacao deve ser posterior a 01.01.2000
+	data_gravacao DATE NOT NULL,
 	data_compra DATE NOT NULL,
 	descricao VARCHAR(200) NOT NULL,
 	preco_compra DECIMAL(10,2) NOT NULL, 

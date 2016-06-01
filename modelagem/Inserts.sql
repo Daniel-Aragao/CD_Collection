@@ -29,3 +29,7 @@ VALUES
 ('Leitmotif'), ('Minueto'), ('Missa'), ('Movimento'), ('Noturno'),
 ('Oratório'), ('Orquestra'), ('Poema Sinfônico'), ('Rapsódia'),
 ('Scherzo'), ('Suíte'), ('Toccata'), ('Variações')
+
+
+INSERT INTO Label (endereco, endereco_site, nome)
+VALUES ('rua de teste do bairro testante', 'www.teste.com.br', 'teste S/A')
