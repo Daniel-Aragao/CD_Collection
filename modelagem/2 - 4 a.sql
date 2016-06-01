@@ -3,8 +3,10 @@ CREATE TRIGGER Faixa_TR_periodo_barroco
 	FOR INSERT, UPDATE
 	AS
 	
-	IF (SELECT tipo_gravacão FROM Inserted) <> 'DDD'
-	AND (SELECT descricao FROM Periodo_Musical 
+	IF 
+	(SELECT tipo_gravacão FROM Inserted) <> 'DDD'
+	AND 
+	(SELECT descricao FROM Periodo_Musical 
 	INNER JOIN Compositor ON (Periodo_Musical.codigo = Compositor.codigo_periodo_musical) 
 	INNER JOIN Faixa_por_compositor ON (Compositor.codigo = Faixa_por_compositor.codigo_compositor) 
 	INNER JOIN Inserted ON (Faixa_por_compositor.codigo_faixa = Inserted.codigo)) = 'Barroco'
